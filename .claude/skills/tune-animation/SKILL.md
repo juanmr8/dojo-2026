@@ -5,13 +5,23 @@ description: Wire a piece's animation to the dev-only Tuner panel so Juan can tu
 
 # Tune animation
 
-The taste tool: the agent writes the animation against a small controls
-object, the panel renders one control per value plus the mode's
-transport, Juan tunes by eye, then the tuned values are baked into the
-source. Template and this file are the single source; a piece's copy is
-free to drift.
+The taste tool. Tuning is not deterministic, so the rules live per
+animation nature: the agent reads the nature's file, exposes the
+values it names, wires the panel, Juan tunes by eye, the tuned values
+are baked back. Template, this file and `natures/` are the single
+source; a piece's copy of the panel is free to drift.
 
-## 1. Install
+## 1. Name the nature, read its file
+
+- Entrance, on mount, time-driven → `natures/load.md`
+- Driven by scroll position → `natures/scroll.md`
+- Anything else (hover, pointer, state change) → no file yet: wire
+  `load` mode as the nearest fit, note the gap in `docs/RECORD.md`.
+
+Read the file before writing a line of animation code. It says what
+to expose, how to build so the panel can drive it, and how to judge.
+
+## 2. Install
 
     bash .claude/skills/tune-animation/scripts/install.sh <slug>
 
@@ -19,34 +29,32 @@ Copies `templates/tuner.tsx` to `apps/<slug>/app/_tuner/tuner.tsx` and
 prints the wiring snippet. Self-contained: React only, no dependency,
 inline styles, hidden in production unless the URL carries `?tune`.
 
-## 2. Pick the mode
+## 3. Wire
 
-- `load` — on-load / entrance choreography. Replay remounts the
-  children; Loop replays on completion (or every N ms when nothing is
-  registered); `register(fromGsap(tl))` or `register(fromMotion(ctrl))`
-  turns the bar into a scrubber with Play/Pause.
-- `scroll` — scroll-driven work. The children sit between two spacers
-  (default 2 viewport heights each, slider 0–4) so the animation can be
-  entered and left; To start aligns the stage; Auto-scroll ping-pongs at
-  a chosen speed. Progress readout = stage through the viewport, 0–1.
+    <Tuner mode="load" | "scroll" controls={CONTROLS}>
+      {(values, api) => <Piece values={values} register={api.register} />}
+    </Tuner>
 
-## 3. Expose the values
+`controls`: every number the nature file says to expose, as
+`{ value, min, max, step }`; every boolean as `true | false`. Type the
+piece's props with `Values<typeof CONTROLS>` from the template. Build
+the animation from `values`, re-create it when they change. Keep the
+page a server component and put the Tuner in a client file.
 
-Every number the eye might want to move goes in `controls`: durations,
-delays, stagger, distances, blur, easing power. Booleans become
-toggles: direction, variant, on/off of a layer. Build the animation from
-`values`, re-create it when they change (`[values, api.replayKey]`).
-Rule of the repo: never ship the first value that works.
+Rule of the repo, restated once: never ship the first value that
+works.
 
 ## 4. Bake
 
-When Juan is done: Copy values → paste the numbers as the defaults in
-the source, delete the controls that didn't earn a slider, keep
-`_tuner/` in the piece (it's dev-only and the `to-lab` capture never
-shows it). A Tuner left in production shows only with `?tune`.
+When Juan says done: Copy values → paste the numbers as the defaults
+in `CONTROLS`, delete the controls the nature file would call
+constants (never moved), keep `_tuner/` in the piece. The `to-lab`
+capture never shows the panel; production shows it only with `?tune`.
 
 ## Growing the tool
 
-New mode or transport (hover, pointer, timeline markers…) → edit
-`templates/tuner.tsx` here, keep it one file, update the mode list
-above. Existing pieces keep their copy unless re-installed.
+- A new nature (hover, pointer, timeline markers…) → a new
+  `natures/<name>.md` with the same three sections, a line in step 1,
+  and whatever the template needs to drive it (one file, keep it so).
+- A rule learned while tuning a piece → the nature file, not the
+  piece. Existing pieces keep their panel copy unless re-installed.

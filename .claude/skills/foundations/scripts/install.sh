@@ -21,7 +21,7 @@ DEST="$APP/$NAME"
 if [ -d "$DEST" ] && [ "$FORCE" != "--force" ]; then
   echo "already installed: apps/$SLUG/$NAME"
   echo "diff against the source before replacing it:"
-  echo "  diff -r foundations/$NAME apps/$SLUG/$NAME"
+  echo "  diff -r -x INSTALL.md foundations/$NAME apps/$SLUG/$NAME"
   echo "then re-run with --force to take the source copy."
   exit 1
 fi

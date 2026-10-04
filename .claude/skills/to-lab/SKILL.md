@@ -52,7 +52,7 @@ devices); missing var → stop and hand Juan the export line.
 
 5. **Verify.** In jmr_v2: `pnpm test:run app/lab` then `pnpm lint`. Red
    → fix the entry (usually the rect), never the tests. If the piece
-   uses a foundation, `diff -r foundations/<name> apps/<slug>/<name>`
+   uses a foundation, `diff -r -x INSTALL.md foundations/<name> apps/<slug>/<name>`
    must be empty: lift the difference back first (`foundations` skill).
 
 6. **Commit the portfolio.** `git -C "$DEV_PROJECTS/jmr_v2" add public/lab/<slug>

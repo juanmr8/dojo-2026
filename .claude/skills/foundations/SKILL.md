@@ -47,7 +47,7 @@ Anything that generalises leaves the piece before the piece is done:
 
 - A fix or improvement inside the installed copy → apply it in
   `foundations/<name>/` with a test, then reinstall with `--force`.
-  `diff -r foundations/<name> apps/<slug>/<name>` must be empty when
+  `diff -r -x INSTALL.md foundations/<name> apps/<slug>/<name>` must be empty when
   the piece is published; the `to-lab` check asks for it.
 - An effect that a second piece would want → move it to
   `foundations/<name>/effects/`, export it from `index.ts`, add it to

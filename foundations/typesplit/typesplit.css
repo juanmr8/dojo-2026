@@ -1,0 +1,9 @@
+/* Units start hidden only when an effect can actually reveal them:
+   scripting on, and the user has not asked for reduced motion.
+   Without JS or with reduced motion, the text is simply there.
+   data-pending is dropped by TypeSplit the frame effects take over. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+	[data-pending] [data-unit] {
+		opacity: 0;
+	}
+}

@@ -12,6 +12,11 @@ it or when Juan decided it; strike one the same way.
   Animation code never runs on the server.
 - One piece, one idea, one component tree. A second idea is a second
   piece.
+- A piece starts from a foundation when one fits the brief
+  (`foundations/README.md`, installed as `apps/<slug>/<name>/`,
+  imported as `@/<name>`). The piece's own files never go inside the
+  installed copy, and the copy never drifts from its source: a fix
+  lands in `foundations/<name>/` first, then is reinstalled.
 - Every animated value lives in one object at the top of the file
   (`CONTROLS` when the Tuner is wired, `MOTION` otherwise). No number
   inside a tween that is not named there. Comments on the object say
@@ -52,3 +57,26 @@ it or when Juan decided it; strike one the same way.
 - Tailwind for layout and type; motion lives in JS, not in Tailwind
   transition classes, unless the piece is explicitly a CSS-only piece.
 - Class lists in groups: layout, spacing, colour, shape, states.
+
+## Presets and options objects
+
+A preset is a composed component (root + driver + effect) that a
+project copies as one file. Piece 02's `presets/blur-title.tsx` is the
+reference. Rules that keep it copyable:
+
+- The tuned values live in one exported constant at the top of the
+  file (`BLUR_TITLE`), typed with the preset's options type. No number
+  below it; the JSX only reads the constant.
+- The component takes `options?: Partial<Options>`. Top-level keys
+  replace, nested timing (`transition`) merges. Say so in the header
+  comment.
+- Modes are a discriminated union on `type` (`load | in-view | scrub`)
+  so one mode's options cannot leak into another. Dispatch once, in a
+  `drive()` helper, never with `if` chains in JSX.
+- The preset adds no behaviour. Everything it needs is a prop of the
+  layer beneath it (root, driver, effect); the preset is a vocabulary
+  plus defaults.
+- For an agent: asked to change how a preset feels, edit the constant.
+  Asked for a new flavour, add a union member and a `drive()` case.
+  Asked for a new value, add it to the layer that owns it first, then
+  surface it in the constant.

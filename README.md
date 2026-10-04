@@ -14,7 +14,13 @@ cd apps/01-paragraph-reveal && pnpm dev
 
 The script spins up Next.js (App Router, TypeScript, Tailwind v4) with
 Motion, GSAP and Prettier, and an empty page. Each app keeps its own
-dependencies and lockfile; nothing is shared.
+dependencies and lockfile. What pieces share lives in `foundations/`
+(component trees that outlived their piece, such as `typesplit` for
+text effects) and is installed into an app as a copy:
+
+```
+bash .claude/skills/foundations/scripts/install.sh 02-blur-text typesplit
+```
 
 ## Publish a piece
 

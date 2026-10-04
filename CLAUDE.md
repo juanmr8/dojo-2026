@@ -18,8 +18,19 @@ Lab with the `to-lab` skill. Public repo, no secrets ever.
 - New piece: `./scripts/new-piece.sh <NN-slug>` (never `create-next-app`
   by hand). Slugs are two digits + kebab-case: `01-paragraph-reveal`.
 
+## Foundations
+
+Component trees that outlived their piece live in `foundations/`
+(catalogue: `foundations/README.md`). Before writing a primitive,
+check the catalogue against the brief; when one fits, use it and
+build the piece's idea inside it. Improvements to a foundation go
+back to its source, never stay in a piece. All of it → `foundations`.
+
 ## Skill routing
 
+- Starting a piece, or about to write a primitive (text splitting,
+  reveal contracts…) → `foundations`: check the catalogue, install
+  what fits, lift improvements back.
 - A piece is done and goes on the portfolio → `to-lab`.
 - Tuning a piece's motion by eye ("tune this", "expose the values") →
   `tune-animation`: dev-only panel, load or scroll mode.
@@ -32,12 +43,15 @@ Lab with the `to-lab` skill. Public repo, no secrets ever.
 - Coding standards: `docs/agents/coding-standards.md`, the review
   baseline; every piece sees it as `docs/coding-standards.md` (symlink
   made by the script). A piece's `docs/` also holds its tuning guide.
+- Testing: `docs/testing.md` — contract tests in jsdom, motion by eye;
+  what to test per effect family. Piece 02 is the reference setup.
 - Improvement journal: `docs/RECORD.md` — append frustrations and
   lessons at the end of a session.
 
 ## What NOT to do (unless asked)
 
 - Add features a piece didn't ask for; a piece is one idea.
-- Share code between apps — copy is fine here, this is practice.
+- Share code between apps by hand. What is shared is a foundation,
+  installed by its script; a piece never copies from another piece.
 - Settle for the first easing, timing or value that "works": the whole
   point is taste. Expose the values, replay, tune.

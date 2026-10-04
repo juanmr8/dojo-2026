@@ -21,6 +21,8 @@ Lab with the `to-lab` skill. Public repo, no secrets ever.
 ## Skill routing
 
 - A piece is done and goes on the portfolio → `to-lab`.
+- Tuning a piece's motion by eye ("tune this", "expose the values") →
+  `tune-animation`: dev-only panel, load or scroll mode.
 
 ## Conventions
 

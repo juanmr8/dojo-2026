@@ -88,6 +88,9 @@ export default function Page() {
 }
 EOT
 
+mkdir -p docs
+ln -s ../../../docs/agents/coding-standards.md docs/coding-standards.md
+
 cat > README.md <<EOT
 # ${SLUG}
 

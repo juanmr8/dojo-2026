@@ -23,11 +23,13 @@ to expose, how to build so the panel can drive it, and how to judge.
 
 ## 2. Install
 
-    bash .claude/skills/tune-animation/scripts/install.sh <slug>
+    bash .claude/skills/tune-animation/scripts/install.sh <slug> <load|scroll>
 
-Copies `templates/tuner.tsx` to `apps/<slug>/app/_tuner/tuner.tsx` and
-prints the wiring snippet. Self-contained: React only, no dependency,
-inline styles, hidden in production unless the URL carries `?tune`.
+Copies `templates/tuner.tsx` to `apps/<slug>/app/_tuner/tuner.tsx`, the
+nature's file to `apps/<slug>/docs/tuning.md` so Juan has it open while
+he works, and prints the wiring snippet. The panel is self-contained:
+React only, no dependency, inline styles, hidden in production unless
+the URL carries `?tune`.
 
 ## 3. Wire
 
@@ -56,5 +58,6 @@ capture never shows the panel; production shows it only with `?tune`.
 - A new nature (hover, pointer, timeline markers…) → a new
   `natures/<name>.md` with the same three sections, a line in step 1,
   and whatever the template needs to drive it (one file, keep it so).
-- A rule learned while tuning a piece → the nature file, not the
-  piece. Existing pieces keep their panel copy unless re-installed.
+- Juan annotates the piece's `docs/tuning.md` as he tunes. At bake,
+  diff it against `natures/<nature>.md` and lift what generalises into
+  the nature file; the piece keeps its copy. Panels are not re-synced.

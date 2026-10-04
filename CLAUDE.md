@@ -29,8 +29,9 @@ Lab with the `to-lab` skill. Public repo, no secrets ever.
 - One piece, one folder, one README line saying what it explores.
 - Files kebab-case, components PascalCase, hooks `use*`.
 - Prettier config at the root is copied into every app by the script.
-- Coding standards: `docs/agents/coding-standards.md` — written with
-  Juan as pieces reveal them; empty until then.
+- Coding standards: `docs/agents/coding-standards.md`, the review
+  baseline; every piece sees it as `docs/coding-standards.md` (symlink
+  made by the script). A piece's `docs/` also holds its tuning guide.
 - Improvement journal: `docs/RECORD.md` — append frustrations and
   lessons at the end of a session.
 

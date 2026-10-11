@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
+
+/* The artboard's palette (Figma 901:639). Light only: the design is a
+   white sheet with grey rules and a black playhead. */
+@theme {
+	--color-paper: #ffffff;
+	--color-rule: #d9d9d9;
+	--color-ink: #000000;
+}
+
+body {
+	background: var(--color-paper);
+	color: var(--color-ink);
+}
